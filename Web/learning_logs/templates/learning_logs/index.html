@@ -1,0 +1,43 @@
+<!--<p>                             Learning Log                      </p>-->
+
+{% extends 'learning_logs/base.html' %}
+
+{% block page_header %}
+  <div class="p-3 mb-4 bg-light border rounded-3">
+    <div class="container-fluid py-4">
+      <h1 class="display-3">Good Good Study, Day Day Up</h1>
+
+      <p class="lead">时刻跟踪你的学习进度，每当你学什么新东西时，到这来对其进行总结。</p>
+
+      <a class="btn btn-primary btn-lg mt-1"
+          href="{% url 'accounts:register' %}">注册 &raquo;</a>
+    </div>
+  </div>
+{% endblock page_header %}
+
+{#为什么不需要重复写 <head>#}
+{#模板继承的本质是 “复用 + 替换”#}
+{#当子模板用 {% extends 'learning_logs/base.html' %} 继承时，会完整继承 base.html 的所有代码结构，包括 <head>、<title> 这些标签。#}
+{#重复写会导致 HTML 结构错误#}
+{#如果子模板再写一遍 <head>，最终渲染出的 HTML 会包含两个 <head> 标签，这违反了 HTML 规范，可能导致浏览器解析异常（比如样式、脚本加载失效）。#}
+{#正确的写法#}
+{#你现在的子模板（比如 index.html）里的 <head> 和 </head> 是多余的，应该删掉，只保留块内容：#}
+
+
+{#{% extends 'learning_logs/base.html' %}#}
+
+{# 直接在父模板的 title 块里填充内容，不需要再包 <head> 和 <title> #}
+{#{% block title %}Learning Logs{% endblock title %}#}
+
+{#{% block content %}#}
+{#<p> Learning Log 帮助你记录你在你所感兴趣的方面的的所有学习 </p>#}
+{#{% endblock content %}#}
+
+
+{#核心逻辑#}
+{#父模板（base.html）：负责提供完整的页面骨架（如 <html>、<head>、导航栏），并定义可替换的块（如 {% block title %}、{% block content %}）。#}
+{#子模板（index.html/topic.html）：只需要重写这些块的内容，不需要重复父模板已经提供的标签结构。#}
+
+
+
+

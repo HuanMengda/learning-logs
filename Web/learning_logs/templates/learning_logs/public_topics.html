@@ -1,0 +1,37 @@
+
+{% extends 'learning_logs/base.html' %}
+
+{% block page_header %}
+  <h1>Public Topics</h1>
+{% endblock page_header %}
+
+{% block content %}
+
+  <ul class="list-group border-bottom pb-2 mb-4">
+    {% for public_topic in public_topics %}
+      <li class="list-group-item border-0">
+        <a href="{% url 'learning_logs:public_topic' public_topic.id %}">
+          {{ public_topic.text }}</a>
+      </li>
+        <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+            <li class="list-group-item border-0">
+        {% if owner.id == public_topic.owner.id  %}
+                <a href="{% url 'learning_logs:edit_public_topic' public_topic.id %}">
+          更改</a>
+
+        <a href="{% url 'learning_logs:delete_public_topic' public_topic.id %}">
+          删除</a>
+        {% endif %}
+      </li>
+         </ul>
+    {% empty %}
+      <li class="list-group-item border-0">目前还没有公共条目.</li>
+    {% endfor %}
+  </ul>
+
+
+    {% if owner.id %}
+{#        未登录时 request.user 是 AnonymousUser（匿名用户），访问 id 不会报错（返回 None）#}
+  <a href="{% url 'learning_logs:new_public_topic' %}">添加一个新公开主题</a>
+    {% endif %}
+{% endblock content %}
